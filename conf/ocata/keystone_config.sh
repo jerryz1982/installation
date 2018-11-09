@@ -14,6 +14,7 @@ function _keystone_configure() {
     crudini --set $KEYSTONE_CONF DEFAULT debug $DEBUG
     crudini --set $KEYSTONE_CONF database connection mysql://$DB_USER_KEYSTONE:$DB_PWD_KEYSTONE@$DB_IP/keystone
     crudini --set $KEYSTONE_CONF token provider fernet
+    crudini --set $KEYSTONE_CONF oslo_messaging_notifications driver noop
     #crudini --set $KEYSTONE_CONF token driver memcache
 
     keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
