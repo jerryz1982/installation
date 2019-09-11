@@ -71,7 +71,7 @@ fi
 #export RABBIT_CLUSTER
 
 # openstack components
-export SERVICES=${SERVICES:-"nova keystone glance neutron cinder"}
+export SERVICES=${SERVICES:-"nova keystone glance neutron cinder magnum"}
 export SERVICES_NODB=${SERVICES_NODB:-"placement"}
 export ADMIN_TOKEN=${ADMIN_TOKEN:-abc012345678909876543210cba}
 export METADATA_SECRET=metadata_shared_secret
@@ -138,6 +138,8 @@ export CINDER_CONF=${CINDER_CONF:-"/etc/cinder/cinder.conf"}
 export NEUTRON_CONF=${NEUTRON_CONF:-"/etc/neutron/neutron.conf"}
 export ML2_CONF=${ML2_CONF:-"/etc/neutron/plugins/ml2/ml2_conf.ini"}
 export OVS_CONF=${OVS_CONF:-"/etc/neutron/plugins/ml2/openvswitch_agent.ini"}
+export MAGNUM_CONF=${MAGNUM_CONF:-"/etc/magnum/magnum.conf"}
+export DOMAIN_ADMIN_PASS=${DOMAIN_ADMIN_PASS:-"magnum_admin"}
 
 export INS_KERNELS=${INS_KERNELS:-2}
 

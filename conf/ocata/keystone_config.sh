@@ -101,6 +101,14 @@ function _keystone_configure() {
                 openstack endpoint create --region $REGION volumev2 public http://$CTRL_MGMT_IP:8776/v2/%\(tenant_id\)s
                 openstack endpoint create --region $REGION volumev2 internal http://$CTRL_MGMT_IP:8776/v2/%\(tenant_id\)s
                 openstack endpoint create --region $REGION volumev2 admin http://$CTRL_MGMT_IP:8776/v2/%\(tenant_id\)s
+            elif [ $service == 'magnum' ]; then
+                openstack service create --name magnum --description "OpenStack Container Infrastructure Management Service" container-infra
+                openstack endpoint create --region RegionOne container-infra public http://$CTRL_MGMT_IP:9511/v1
+                openstack endpoint create --region RegionOne container-infra internal http://$CTRL_MGMT_IP:9511/v1
+                openstack endpoint create --region RegionOne container-infra admin http://$CTRL_MGMT_IP:9511/v1
+                openstack domain create --description "Owns users and projects created by magnum" magnum
+                openstack user create --domain magnum --password $DOMAIN_ADMIN_PASS magnum_domain_admin
+                openstack role add --domain magnum --user-domain magnum --user magnum_domain_admin admin
             fi
         fi
         if [ $service != 'keystone' ] ; then

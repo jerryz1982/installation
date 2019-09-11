@@ -585,6 +585,13 @@ function dashboard() {
 
 }
 
+function magnum() {
+    yum install -y openstack-magnum-api openstack-magnum-conductor python-magnumclient
+    _magnum_configure
+    su -s /bin/sh -c "magnum-db-manage upgrade" magnum
+    systemctl enable openstack-magnum-api.service openstack-magnum-conductor.service
+    systemctl start openstack-magnum-api.service openstack-magnum-conductor.service
+}
 
 function allinone() {
     database
