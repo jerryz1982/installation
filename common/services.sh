@@ -593,6 +593,14 @@ function magnum() {
     systemctl start openstack-magnum-api.service openstack-magnum-conductor.service
 }
 
+function heat() {
+    yum install openstack-heat-api openstack-heat-api-cfn openstack-heat-engine
+    _heat_configure
+    su -s /bin/sh -c "heat-manage db_sync" heat
+    systemctl enable openstack-heat-api.service openstack-heat-api-cfn.service openstack-heat-engine.service
+    systemctl start openstack-heat-api.service openstack-heat-api-cfn.service openstack-heat-engine.service
+}
+
 function allinone() {
     database
     mq

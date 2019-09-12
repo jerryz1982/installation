@@ -139,7 +139,9 @@ export NEUTRON_CONF=${NEUTRON_CONF:-"/etc/neutron/neutron.conf"}
 export ML2_CONF=${ML2_CONF:-"/etc/neutron/plugins/ml2/ml2_conf.ini"}
 export OVS_CONF=${OVS_CONF:-"/etc/neutron/plugins/ml2/openvswitch_agent.ini"}
 export MAGNUM_CONF=${MAGNUM_CONF:-"/etc/magnum/magnum.conf"}
-export DOMAIN_ADMIN_PASS=${DOMAIN_ADMIN_PASS:-"magnum_admin"}
+export MAGNUM_DOMAIN_ADMIN_PASS=${MAGNUM_DOMAIN_ADMIN_PASS:-"magnum_admin"}
+export HEAT_DOMAIN_ADMIN_PASS=${HEAT_DOMAIN_ADMIN_PASS:-"heat_admin"}
+
 
 export INS_KERNELS=${INS_KERNELS:-2}
 

@@ -107,8 +107,24 @@ function _keystone_configure() {
                 openstack endpoint create --region RegionOne container-infra internal http://$CTRL_MGMT_IP:9511/v1
                 openstack endpoint create --region RegionOne container-infra admin http://$CTRL_MGMT_IP:9511/v1
                 openstack domain create --description "Owns users and projects created by magnum" magnum
-                openstack user create --domain magnum --password $DOMAIN_ADMIN_PASS magnum_domain_admin
+                openstack user create --domain magnum --password $MAGNUM_DOMAIN_ADMIN_PASS magnum_domain_admin
                 openstack role add --domain magnum --user-domain magnum --user magnum_domain_admin admin
+            elif [ $service == 'heat' ]; then
+                openstack service create --name heat --description "Orchestration" orchestration
+                openstack service create --name heat-cfn --description "Orchestration"  cloudformation
+                openstack endpoint create --region RegionOne orchestration public http://$CTRL_MGMT_IP:8004/v1/%\(tenant_id\)s
+                openstack endpoint create --region RegionOne orchestration internal http://$CTRL_MGMT_IP:8004/v1/%\(tenant_id\)s
+                openstack endpoint create --region RegionOne orchestration admin http://$CTRL_MGMT_IP:8004/v1/%\(tenant_id\)s
+                openstack endpoint create --region RegionOne cloudformation public http://$CTRL_MGMT_IP:8000/v1
+                openstack endpoint create --region RegionOne cloudformation internal http://$CTRL_MGMT_IP:8000/v1
+                openstack endpoint create --region RegionOne cloudformation admin http://$CTRL_MGMT_IP:8000/v1
+                openstack domain create --description "Stack projects and users" heat
+                openstack user create --domain heat --password $HEAT_DOMAIN_ADMIN_PASS heat_domain_admin
+                openstack role add --domain heat --user-domain heat --user heat_domain_admin admin
+                openstack role create heat_stack_owner
+                openstack role create heat_stack_user
+                openstack role add --project admin --user admin heat_stack_owner
+                openstack role add --project admin --user admin heat_stack_user
             fi
         fi
         if [ $service != 'keystone' ] ; then
