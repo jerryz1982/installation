@@ -1,4 +1,4 @@
-function _magnum_configure() {
+function _heat_configure() {
     crudini --set $HEAT_CONF database connection mysql://$DB_USER_HEAT:$DB_PWD_HEAT@$DB_IP/heat
 
     crudini --set $HEAT_CONF DEFAULT transport_url "rabbit://$RABBIT_LIST"
@@ -17,8 +17,8 @@ function _magnum_configure() {
     crudini --set $HEAT_CONF keystone_authtoken user_domain_id default
     crudini --set $HEAT_CONF keystone_authtoken auth_type password
     crudini --set $HEAT_CONF keystone_authtoken project_name $KEYSTONE_T_NAME_SERVICE
-    crudini --set $HEAT_CONF keystone_authtoken username $KEYSTONE_U_MAGNUM
-    crudini --set $HEAT_CONF keystone_authtoken password $KEYSTONE_U_PWD_MAGNUM
+    crudini --set $HEAT_CONF keystone_authtoken username $KEYSTONE_U_HEAT
+    crudini --set $HEAT_CONF keystone_authtoken password $KEYSTONE_U_PWD_HEAT
     crudini --set $HEAT_CONF oslo_messaging_notifications driver noop
 
     crudini --set $HEAT_CONF trustee user_domain_name default
@@ -30,6 +30,5 @@ function _magnum_configure() {
     crudini --set $HEAT_CONF ec2authtoken auth_uri http://$CTRL_MGMT_IP:5000
 
 
-    crudini --set $HEAT_CONF oslo_concurrency lock_path /var/lib/magnum/tmp
 
 }
